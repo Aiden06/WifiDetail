@@ -1,6 +1,7 @@
 package book
 
 import java.time.Year
+import java.util.*
 
 const val MAXTOBORROW = 10
 
@@ -10,6 +11,8 @@ object BaseUrl{
 
 open class Book(val title: String, val author: String, val year: Year) {
     private var currentPage = 0
+    var pages: Int = 100
+
     companion object BaseUrl2{
         const val BASE_URL = "/shelf2/"
     }
@@ -38,6 +41,20 @@ class EBook(title: String, author: String, year: Year, var format: String = "tex
     override fun readPage() {  words += 250 }
 }
 
+fun Book.weight(): Double{
+    return pages*1.5
+}
+
+fun Book.tornPages(count: Int){
+    if (pages >= count) pages -= count else pages = 0
+}
+
+class Puppy(){
+    fun playWithBook(book: Book){
+        book.tornPages(Random().nextInt(book.pages+1))
+    }
+}
+
 fun main(){
     val book = Book("programer", "haokai", Year.now())
     val (title, author, year) = book.getTitleAndAuthorAndYear()
@@ -52,4 +69,10 @@ fun main(){
     println(moreBooks)
 
     book.printUrl()
+
+    val puppy = Puppy()
+    while (book.pages > 0) {
+        puppy.playWithBook(book)
+        println(book.pages)
+    }
 }
