@@ -56,7 +56,7 @@ class Puppy(){
 }
 
 fun main(){
-    val book = Book("programer", "haokai", Year.now())
+    val book = Book("programmer", "haokai", Year.now())
     val (title, author, year) = book.getTitleAndAuthorAndYear()
     println("Here is your book $title written by $author in $year")
 
